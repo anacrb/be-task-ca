@@ -1,6 +1,6 @@
 from uuid import UUID
 from sqlalchemy.orm import Session
-from .model import CartItem, User
+from be_task_ca.user.persistence.model import CartItem, User
 
 
 def save_user(user: User, db: Session):

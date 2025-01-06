@@ -6,9 +6,9 @@ from be_task_ca.item.persistence.model import Item
 
 from be_task_ca.item.persistence.repository import find_item_by_id
 
-from .model import CartItem, User
+from be_task_ca.user.persistence.model import CartItem, User
 
-from .repository import (
+from be_task_ca.user.persistence.repository import (
     find_cart_items_for_user_id,
     find_user_by_email,
     find_user_by_id,
