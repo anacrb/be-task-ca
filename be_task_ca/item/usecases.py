@@ -1,5 +1,5 @@
 from .entities import Item
-from .exceptions import UserAlreadyExist
+from .exceptions import ItemAlreadyExist
 from .interfaces import ItemDBRepositoryInterface
 from .schema import AllItemsResponse, CreateItemRequest, CreateItemResponse
 
@@ -11,7 +11,7 @@ class ManageItem:
     def create_item(self, item: CreateItemRequest) -> CreateItemResponse:
         search_result = self.db.find_item_by_name(item.name)
         if search_result is not None:
-            raise UserAlreadyExist
+            raise ItemAlreadyExist
 
         new_item = Item(
             name=item.name,

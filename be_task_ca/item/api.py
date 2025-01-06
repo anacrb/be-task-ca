@@ -1,12 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
 
-from .exceptions import UserAlreadyExist
-from .persistence.SQLAlquemy import ItemRepositorySQLAlchemy, get_item_repository
+from .exceptions import ItemAlreadyExist
 from .persistence.in_memory import InMemoryItemRepository, get_in_memory_item_repository
-from .usecases import create_item, get_all, ManageItem
-
-from ..common import get_db
+from .usecases import ManageItem
 
 from .schema import CreateItemRequest, CreateItemResponse
 
@@ -26,7 +22,7 @@ async def post_item(
     try:
         manage_item = ManageItem(db_interface)
         return manage_item.create_item(item)
-    except UserAlreadyExist as e:
+    except ItemAlreadyExist as e:
         raise HTTPException(
             status_code=409, detail=str(e)
         )
