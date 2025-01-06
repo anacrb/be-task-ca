@@ -8,7 +8,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 
 @dataclass
-class CartItem(Base):
+class CartItemModel(Base):
     __tablename__ = "cart_items"
 
     user_id: Mapped[uuid.UUID] = mapped_column(
@@ -19,7 +19,7 @@ class CartItem(Base):
 
 
 @dataclass
-class User(Base):
+class UserModel(Base):
     __tablename__ = "users"
 
     id: Mapped[uuid.UUID] = mapped_column(
