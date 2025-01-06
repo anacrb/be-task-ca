@@ -1,7 +1,7 @@
 from typing import List
 from uuid import UUID
 from sqlalchemy.orm import Session
-from .model import Item
+from be_task_ca.item.persistence.model import Item
 
 
 def save_item(item: Item, db: Session) -> Item:

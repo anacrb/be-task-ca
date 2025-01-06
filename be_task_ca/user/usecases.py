@@ -2,9 +2,9 @@ import hashlib
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from ..item.model import Item
+from be_task_ca.item.persistence.model import Item
 
-from ..item.repository import find_item_by_id
+from be_task_ca.item.persistence.repository import find_item_by_id
 
 from .model import CartItem, User
 

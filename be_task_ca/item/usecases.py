@@ -1,9 +1,9 @@
 from typing import List
 from fastapi import HTTPException
 
-from .repository import find_item_by_name, get_all_items, save_item
+from be_task_ca.item.persistence.repository import find_item_by_name, get_all_items, save_item
 
-from .model import Item
+from be_task_ca.item.persistence.model import Item
 from .schema import AllItemsRepsonse, CreateItemRequest, CreateItemResponse
 from sqlalchemy.orm import Session
 
