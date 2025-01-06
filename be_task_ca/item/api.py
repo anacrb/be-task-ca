@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 from .exceptions import UserAlreadyExist
 from .persistence.SQLAlquemy import ItemRepositorySQLAlchemy, get_item_repository
+from .persistence.in_memory import InMemoryItemRepository, get_in_memory_item_repository
 from .usecases import create_item, get_all, ManageItem
 
 from ..common import get_db
@@ -19,7 +20,8 @@ item_router = APIRouter(
 @item_router.post("/")
 async def post_item(
         item: CreateItemRequest,
-        db_interface: ItemRepositorySQLAlchemy = Depends(get_item_repository)
+        # db_interface: ItemRepositorySQLAlchemy = Depends(get_item_repository) # This is replaced by the in memory implementation
+        db_interface: InMemoryItemRepository = Depends(get_in_memory_item_repository)
 ) -> CreateItemResponse:
     try:
         manage_item = ManageItem(db_interface)
@@ -35,7 +37,10 @@ async def post_item(
 
 
 @item_router.get("/")
-async def get_items(db_interface: ItemRepositorySQLAlchemy = Depends(get_item_repository)):
+async def get_items(
+        # db_interface: ItemRepositorySQLAlchemy = Depends(get_item_repository) # This is replaced by the in memory implementation
+        db_interface: InMemoryItemRepository = Depends(get_in_memory_item_repository)
+):
     try:
         manage_item = ManageItem(db_interface)
         return manage_item.get_all()
