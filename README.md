@@ -82,6 +82,12 @@ Stretch goals:
 * Write meaningful tests
 * Replace the SQL repository with an in-memory implementation
 
+Obsv: I did a small refactoring to separate the use cases and repositories. And I also replaced SQL repository with an 
+in-memory implementation.
+There are a few thing that could still be better, like the ManageUser class could be divided. Also, I could have done a 
+better job at decoupling the user from the Item. But I think this is a good start.
+I did not have time to write tests, but I think that would be the next step.
+
 ## References
 * [Clean Architecture by Uncle Bob](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 * [Clean Architecture in Python](https://www.youtube.com/watch?v=C7MRkqP5NRI)

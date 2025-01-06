@@ -4,6 +4,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from .exceptions import UserAlreadyExist, UserDoesNotExist, ItemDoesNotExist, NotEnoughItemsInStock, ItemAlreadyInCart
 from .persistence.SQLAlquemy import UserRepositorySQLAlchemy, get_user_repository, UserItemRepositorySQLAlchemy, \
     get_user_item_repository
+from .persistence.in_memory import InMemoryUserRepository, get_in_memory_user_repository, InMemoryUserItemRepository, \
+    get_in_memory_user_item_repository
 
 from .usecases import ManageUser
 
@@ -19,7 +21,8 @@ user_router = APIRouter(
 @user_router.post("/")
 async def post_customer(
         user: CreateUserRequest,
-        db_interface: UserRepositorySQLAlchemy = Depends(get_user_repository)
+        # db_interface: UserRepositorySQLAlchemy = Depends(get_user_repository)  # This is replaced by the in memory implementation
+        db_interface: InMemoryUserRepository = Depends(get_in_memory_user_repository)
 ):
     try:
         manage_user = ManageUser(db_interface)
@@ -34,8 +37,10 @@ async def post_customer(
 async def post_cart(
         user_id: UUID,
         cart_item: AddToCartRequest,
-        db_user_interface: UserRepositorySQLAlchemy = Depends(get_user_repository),
-        db_item_interface: UserItemRepositorySQLAlchemy = Depends(get_user_item_repository)
+        # db_user_interface: UserRepositorySQLAlchemy = Depends(get_user_repository),  # This is replaced by the in memory implementation
+        # db_item_interface: UserItemRepositorySQLAlchemy = Depends(get_item_repository)  # This is replaced by the in memory implementation
+        db_user_interface: InMemoryUserRepository = Depends(get_in_memory_user_repository),
+        db_item_interface: InMemoryUserItemRepository = Depends(get_in_memory_user_item_repository)
 ):
     try:
         manage_user = ManageUser(db_user_interface, db_item_interface)
@@ -63,7 +68,8 @@ async def post_cart(
 @user_router.get("/{user_id}/cart")
 async def get_cart(
         user_id: UUID,
-        db_interface: UserRepositorySQLAlchemy = Depends(get_user_repository)
+        # db_interface: UserRepositorySQLAlchemy = Depends(get_user_repository)  # This is replaced by the in memory implementation
+        db_interface: InMemoryUserRepository = Depends(get_in_memory_user_repository)
 ):
     try:
         manage_user = ManageUser(db_interface)
